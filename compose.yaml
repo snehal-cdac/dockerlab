@@ -1,0 +1,30 @@
+services:
+  proxy:
+    build: ./proxy
+    container_name: apache-proxy
+    ports:
+      - "80:80"
+    depends_on:
+      - main
+      - swarm
+    networks:
+      - docker-net
+
+  main:
+    build: ./main
+    container_name: docker-main
+    expose:
+      - "80"
+    networks:
+      - docker-net
+
+  swarm:
+    build: ./swarm
+    container_name: docker-swarm
+    expose:
+      - "80"
+    networks:
+      - docker-net
+
+networks:
+  docker-net:
